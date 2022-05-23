@@ -46,8 +46,7 @@ Route::middleware(['auth:sanctum','role:Employee',config('jetstream.auth_session
     Route::post('storeAddWorker',[WorkerController::class,'store'])->name('storeAddWorker');
 
     Route::get('ViewWorker',[WorkerController::class,'View'])->name('ViewWorker');
-    // Route::post('storeAddWorker',[WorkerController::class,'store'])->name('storeAddWorker');
-
+    
     Route::get('EditWorker',[WorkerController::class,'edit'])->name('EditWorker');
     Route::post('SaveEditWorker',[WorkerController::class,'update'])->name('SaveEditWorker');
     Route::post('DeleteWorker',[WorkerController::class,'DeleteWorker'])->name('DeleteWorker');
@@ -57,8 +56,9 @@ Route::middleware(['auth:sanctum','role:Employee',config('jetstream.auth_session
 });
 
 Route::middleware(['auth:sanctum','role:User',config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('WorkerView',[WorkerController::class,'show'])->name('WorkerView');
+    Route::get('/search',[WorkerController::class, 'search'])->name('search');
 
-   
 });
 
 // Route::group(['middleware'=>['auth','role:author|reviewer']],function ()

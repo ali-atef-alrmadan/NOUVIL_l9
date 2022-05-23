@@ -31,10 +31,10 @@
             <div class="mb-5">
                 <x-jet-validation-errors class="mb-4" />
             </div>
-            <div class="tableContent">
+            <div class="tableContent  text-center max-w-6xl">
                 @if ($Worker->isempty())
                     <h1 class="msg text-bold">
-                        قائمة الأبحاث فارغة
+                        This Office Have Not Worker.
                     </h1>
                 @else
                     <table class="w-full">

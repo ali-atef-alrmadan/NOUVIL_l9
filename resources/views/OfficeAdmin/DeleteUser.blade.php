@@ -15,7 +15,7 @@
                     <div class="tableContent">
                         @if($User->isEmpty())
                             <h1 class="msg text-bold">
-                                لا يوجد نتائج
+                                This Office Have Not User Viewed.
                             </h1>
                         @else
                             <table class="w-full text-center" >

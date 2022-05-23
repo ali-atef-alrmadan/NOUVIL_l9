@@ -7,6 +7,10 @@ use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
+
 
 class WorkerController extends Controller
 {
@@ -68,20 +72,6 @@ class WorkerController extends Controller
             'worker_photo_path' =>$IMG_filename ,
             'Available' => "Available", 
         ]);
-            // $Worker=new Worker();
-            // $Worker->office_id= $MyOffice->office_id;
-            // $Worker->name = $request->name;
-            // $Worker->age = $request->age;
-            // $Worker->country = $request->country;
-            // $Worker->language = $request->language;
-            // $Worker->Social_status = $request->Social_status;
-            // $Worker->Experience = $request->Experience;
-            // $Worker->religon = $request->religon ;
-            // $Worker->worker_photo_path =$IMG_filename ;
-            // $Worker->Available = "Available";
-            // $Worker->save();
-        
-
         return redirect()->back()->withErrors(['Worker has been added successfully.']);
         
     }
@@ -92,9 +82,30 @@ class WorkerController extends Controller
      * @param  \App\Models\Worker  $worker
      * @return \Illuminate\Http\Response
      */
-    public function show(Worker $worker)
+    public function show()
     {
-        //
+        $country=DB::table('workers')->select('country')->distinct()->get();
+        
+        $Worker=Worker::select('id','name','age','country','language','Social_status','Experience','religon','worker_photo_path','Available',)->where('Available','=','Available')->get();
+        // dd($country);
+        return view('User.WorkerView',compact('Worker','country'));
+    }
+
+    /**
+     * Store a new user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function search(Request $request){
+        
+        $country=DB::table('workers')->select('country')->distinct()->get();
+
+        $Worker=Worker::where('country','like','%'.$request->get('query').'%')
+        ->where('Available','=','Available')
+        ->get();
+        return view('User.WorkerView',compact('Worker','country'));
     }
 
     /**

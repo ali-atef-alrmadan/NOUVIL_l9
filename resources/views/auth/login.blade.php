@@ -58,9 +58,9 @@
                                                 @endif
                                             </div> 
                                             <div class="bg-green-600">
-                                               
+
                                             </div>
-                                             <!-- Pills navs -->
+                                            <!-- Pills navs -->
                     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                         <li class="nav-item" role="presentation">
                             <x-jet-button  class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab" aria-controls="pills-login" aria-selected="true" style="background-color:#5fcf80 ;">
