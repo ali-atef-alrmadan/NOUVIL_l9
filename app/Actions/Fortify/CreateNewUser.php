@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -24,8 +25,8 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'Phone' => ['required', 'integer'],
-            'birth_date' => ['required', 'date'],
+            'Phone' => 'required | numeric | digits:10 |regex:/0{1}[7-9]{2}[0-9]{7}/',
+            'birth_date' => 'required|date|before:18 years',
             'country' => ['required', 'string'],
             
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',

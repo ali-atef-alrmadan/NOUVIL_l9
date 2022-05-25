@@ -36,6 +36,11 @@
                         </x-jet-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('SeeReservation') }}" :active="request()->routeIs('SeeReservation')">
+                            {{ __('Reservation') }}
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('ReceiveContact') }}" :active="request()->routeIs('ReceiveContact')">
                             {{ __('Receive Contact') }}
                         </x-jet-nav-link>
@@ -43,10 +48,23 @@
                 @endif
 
                 @if (Auth::user()->hasRole('User'))
-                    
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('Reservation') }}" :active="request()->routeIs('Reservation')">
+                        {{ __('Reservation') }}
+                    </x-jet-nav-link>
+                </div>
                 @endif
             </div>
-
+            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
+                    <x-jet-dropdown-link class="login-btns" href="{{ route('logout') }}"
+                            @click.prevent="$root.submit();">
+                        {{ __('Log Out') }}
+                    </x-jet-dropdown-link>
+                </form>
+                
+            </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -79,12 +97,6 @@
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-jet-dropdown-link>
-                            @endif
-
                             <div class="border-t border-gray-100"></div>
 
                             <!-- Authentication -->
@@ -92,7 +104,7 @@
                                 @csrf
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                        @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
@@ -100,7 +112,6 @@
                     </x-jet-dropdown>
                 </div>
             </div>
-
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
@@ -120,6 +131,46 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
+
+        @if (Auth::user()->hasRole('Admin'))
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-jet-responsive-nav-link href="{{ route('AddEmployee') }}" :active="request()->routeIs('AddEmployee')">
+                {{ __('Add Employee') }}
+            </x-jet-responsive-nav-link>
+        </div>
+
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-jet-responsive-nav-link href="{{ route('Mumber') }}" :active="request()->routeIs('Mumber')">
+                {{ __('Mumber') }}
+            </x-jet-responsive-nav-link>
+        </div>
+    @endif
+
+    @if (Auth::user()->hasRole('Employee'))
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-jet-responsive-nav-link href="{{ route('ViewWorker') }}" :active="request()->routeIs('ViewWorker')">
+                {{ __('Worker') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-jet-responsive-nav-link href="{{ route('SeeReservation') }}" :active="request()->routeIs('SeeReservation')">
+                {{ __('Reservation') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-jet-responsive-nav-link href="{{ route('ReceiveContact') }}" :active="request()->routeIs('ReceiveContact')">
+                {{ __('Receive Contact') }}
+            </x-jet-responsive-nav-link>
+        </div>
+    @endif
+
+    @if (Auth::user()->hasRole('User'))
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <x-jet-responsive-nav-link href="{{ route('Reservation') }}" :active="request()->routeIs('Reservation')">
+            {{ __('Reservation') }}
+        </x-jet-responsive-nav-link>
+    </div>
+    @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -142,52 +193,16 @@
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-jet-responsive-nav-link>
-                @endif
-
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
+                                @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
                 </form>
 
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-jet-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-jet-responsive-nav-link>
-                    @endcan
-
-                    <div class="border-t border-gray-200"></div>
-
-                    <!-- Team Switcher -->
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Switch Teams') }}
-                    </div>
-
-                    @foreach (Auth::user()->allTeams() as $team)
-                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
-                    @endforeach
-                @endif
             </div>
         </div>
     </div>

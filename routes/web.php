@@ -6,6 +6,11 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\ReservationController;
+use App\Models\Employee;
+use App\Models\User;
+use App\Models\Worker;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +23,25 @@ use App\Http\Controllers\WorkerController;
 |
 */
 
-Route::get('/', function () {return view('Home');})->name('Home');
-Route::get('/About', function () {return view('About');})->name('About');
+Route::get('/', function () {
+    $User=User::count();
+    $EMPLOYEES=Employee::count();
+    $maids=Worker::count();
+    $country=DB::table('workers')->select('country')->distinct()->count();
 
-Route::get('/Contact', function () {return view('Contact');})->name('Contact');
+    return view('Home',compact('User','EMPLOYEES','maids','country'));
+})->name('Home');
+Route::get('/About', function () {
+    $User=User::count();
+    $EMPLOYEES=Employee::count();
+    $maids=Worker::count();
+    $country=DB::table('workers')->select('country')->distinct()->count();
+    return view('About',compact('User','EMPLOYEES','maids','country'));
+})->name('About');
+
+Route::get('/Contact', function () {
+    return view('Contact');
+})->name('Contact');
 Route::post('/SaveContact',[FeedbackController::class,'store'])->name('SaveContact');
 
 
@@ -50,13 +70,19 @@ Route::middleware(['auth:sanctum','role:Employee',config('jetstream.auth_session
     Route::get('EditWorker',[WorkerController::class,'edit'])->name('EditWorker');
     Route::post('SaveEditWorker',[WorkerController::class,'update'])->name('SaveEditWorker');
     Route::post('DeleteWorker',[WorkerController::class,'DeleteWorker'])->name('DeleteWorker');
-   
+
     Route::get('/ReceiveContact',[FeedbackController::class,'index'])->name('ReceiveContact');
+
+    Route::get('SeeReservation',[ReservationController::class,'show'])->name('SeeReservation');
+    Route::post('acceptReservation',[ReservationController::class,'accept'])->name('acceptReservation');
+    Route::post('rejectReservation',[ReservationController::class,'reject'])->name('rejectReservation');
+    
 
 });
 
 Route::middleware(['auth:sanctum','role:User',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('WorkerView',[WorkerController::class,'show'])->name('WorkerView');
+    Route::get('Reservation',[ReservationController::class,'index'])->name('Reservation');
+    Route::post('storeReservation',[ReservationController::class,'store'])->name('storeReservation');
     Route::get('/search',[WorkerController::class, 'search'])->name('search');
 
 });

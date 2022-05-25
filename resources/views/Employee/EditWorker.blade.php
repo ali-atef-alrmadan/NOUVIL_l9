@@ -53,18 +53,19 @@
                         @foreach($Worker as $item)
                             <tr class="tableBody">
                                 
-                                    <td class="px-3">
-                                        <form method="POST" action="{{route("DeleteWorker")}}" enctype="multipart/form-data">
+                                    <td class="px-3 flex">
+                                        <form method="POST" class="inline" action="{{route("DeleteWorker")}}" enctype="multipart/form-data">
                                             @csrf
                                             <input type="text" name="id" value="{{$item->id}}" hidden>
                                             <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-red-500 text-white hover:bg-red-600 cursor-pointer" type="submit" name="submit" value="Delete">
                                         </form>
-                                        <form method="POST" action="{{route("SaveEditWorker")}}" enctype="multipart/form-data" class="w-full">
+                                        <form method="POST" class="inline" action="{{route("SaveEditWorker")}}" enctype="multipart/form-data" class="w-full">
                                             @csrf
-                                        <div class="space-y-2 flex">
-                                            <input type="text" name="id" value="{{$item->id}}" hidden>
-                                            <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit" name="submit" value="Save">
-                                        </div>
+                                            <div class="space-y-2 flex">
+                                                <input type="text" name="id" value="{{$item->id}}" hidden>
+                                                <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit" name="submit" value="Save">
+                                            </div>
+                                        
                                     </td>
                                     <td class="px-3">
                                         <input type="text" name="name" value="{{$item->name}}" class="p-2 rounded-lg border  cursor-pointer form-control">
@@ -77,7 +78,6 @@
                                             <option value="{{$item->country}}" selected >{{$item->country}}</option>
                                             @include('layouts.components.countries')
                                         </select>
-                                        {{-- <input type="text" name="country"  class=""> --}}
                                     </td>
                                     <td class="px-3">
                                         <select id="language" name="language" class="p-2 rounded-lg border  cursor-pointer form-control">
@@ -86,13 +86,20 @@
                                         </select>
                                     </td>
                                     <td class="px-3">
-                                        <input type="text" name="Social_status" value="{{$item->Social_status}}" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                        <select id="Social_status" name="Social_status" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                            <option value="{{$item->Social_status}}" selected >{{$item->Social_status}}</option>
+                                            <option value="single" >single</option>
+                                            <option value="Married" >Married</option>
+                                        </select>
                                     </td>
                                     <td class="px-3">
                                         <input type="text" name="Experience" value="{{$item->Experience}}" class="p-2 rounded-lg border  cursor-pointer form-control">
                                     </td>
                                     <td class="px-3">
-                                        <input type="text" name="religon" value="{{$item->religon}}" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                        <select class="p-2 rounded-lg border  cursor-pointer form-control" id="religon" name="religon">
+                                            <option value="{{$item->religon}}" selected >{{$item->religon}}</option>
+                                            @include('layouts.components.religon')
+                                        </select>
                                     </td>
                                     <td class="px-3">
                                         <label id="{{$item->worker_photo_path.'0'}}" class="p-2 rounded-lg border border-indigo-500 cursor-pointer" for="{{$item->worker_photo_path}}">
@@ -103,7 +110,11 @@
                                         </div>
                                     </td>
                                     <td class="px-3">
-                                        <input type="text" name="Available" value="{{$item->Available}}" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                        <select id="Available" name="Available" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                            <option value="{{$item->Available}}" selected >{{$item->Available}}</option>
+                                            <option value="Available" >Available</option>
+                                            <option value="NotAvailable" >NotAvailable</option>
+                                        </select>
                                     </td>
                                 </tr>    
                             </form>

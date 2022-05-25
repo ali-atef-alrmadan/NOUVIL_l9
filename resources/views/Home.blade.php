@@ -30,21 +30,21 @@
                 <div class="row counters">
 
                     <div class="col-lg-3 col-6 text-center">
-                        <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{$User}}" data-purecounter-duration="1" class="purecounter"></span>
                         <p># OF USERS</p>
                     </div>
 
                     <div class="col-lg-3 col-6 text-center">
-                        <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{$EMPLOYEES}}" data-purecounter-duration="1" class="purecounter"></span>
                         <p># OF EMPLOYEES</p>
                     </div>
 
                     <div class="col-lg-3 col-6 text-center">
-                        <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{$maids}}" data-purecounter-duration="1" class="purecounter"></span>
                         <p>#The maids we brought</p>
                     </div>
                     <div class="col-lg-3 col-6 text-center">
-                        <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{$country}}" data-purecounter-duration="1" class="purecounter"></span>
                         <p># OF COUNTRIES</p>
                     </div>
 

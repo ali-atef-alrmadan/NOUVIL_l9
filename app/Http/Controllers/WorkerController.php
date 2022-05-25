@@ -9,6 +9,7 @@ use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -84,11 +85,7 @@ class WorkerController extends Controller
      */
     public function show()
     {
-        $country=DB::table('workers')->select('country')->distinct()->get();
-        
-        $Worker=Worker::select('id','name','age','country','language','Social_status','Experience','religon','worker_photo_path','Available',)->where('Available','=','Available')->get();
-        // dd($country);
-        return view('User.WorkerView',compact('Worker','country'));
+       
     }
 
     /**
@@ -104,6 +101,7 @@ class WorkerController extends Controller
 
         $Worker=Worker::where('country','like','%'.$request->get('query').'%')
         ->where('Available','=','Available')
+        ->select('id','name','age','country','language','Social_status','Experience','religon','worker_photo_path','Available')
         ->get();
         return view('User.WorkerView',compact('Worker','country'));
     }
@@ -120,6 +118,7 @@ class WorkerController extends Controller
         ->select("office_id")->first();
 
         $Worker=Worker::where('office_id','=',$MyOffice->office_id)->get();
+        
         return view('Employee.EditWorker',compact('Worker'));
     }
 

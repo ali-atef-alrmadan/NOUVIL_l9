@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use app\Models\User;
+use App\Models\Worker;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -24,7 +26,11 @@ class DashboardController extends Controller
             return view('Dashboard.Employeedashboard');
         }elseif (Auth::user()->hasRole("User"))
         {
-            return view('Dashboard.userdashboard');
+            $country=DB::table('workers')->select('country')->distinct()->get();
+        
+            $Worker=Worker::select('id','name','age','country','language','Social_status','Experience','religon','worker_photo_path','Available')->where('Available','=','Available')->get();
+            // dd($country);
+            return view('User.WorkerView',compact('Worker','country'));
         }
     }
 

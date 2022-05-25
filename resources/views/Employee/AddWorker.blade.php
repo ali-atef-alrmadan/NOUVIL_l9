@@ -52,7 +52,10 @@
                 </div>
                 <div>
                     <x-jet-label for="Social_status" value="{{ __('Social_status') }}" class="p-3"/>
-                    <x-jet-input id="Social_status" class="block mt-1 w-full" type="text" name="Social_status" :value="old('Social_status')" required autofocus autocomplete="Social_status" />
+                    <select id="Social_status" name="Social_status" class="w-full form-control p-2 mb-2 border border-grae-200 rounded-md focus:border-green-500">
+                        <option value="single" >single</option>
+                        <option value="Married" >Married</option>
+                    </select>
                 </div>
                 <div>
                     <x-jet-label for="Experience" value="{{ __('Experience') }}" class="p-3"/>
@@ -60,7 +63,9 @@
                 </div>
                 <div>
                     <x-jet-label for="religon" value="{{ __('religon') }}" class="p-3"/>
-                    <x-jet-input id="religon" class="block mt-1 w-full" type="text" name="religon" :value="old('religon')" required autofocus autocomplete="religon" />
+                    <select class="w-full form-control p-2 mb-2 border border-grae-200 rounded-md focus:border-green-500" id="religon" name="religon">
+                        @include('layouts.components.religon')
+                    </select>
                 </div>
                 <div>
                     <x-jet-label for="worker_photo_path" value="{{ __('Worker Photo') }}" class="p-3"/>

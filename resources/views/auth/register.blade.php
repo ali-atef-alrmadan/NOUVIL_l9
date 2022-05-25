@@ -27,7 +27,7 @@
                                 <br>
                                 <!-- Phone input -->
                                 <div>
-                                    <input type="number" name="Phone" :value="old('Phone')" required autofocus autocomplete="Phone" id="registerName" class="form-control" placeholder="Phone">
+                                    <input type="text" name="Phone" :value="old('Phone')" required autofocus autocomplete="Phone" id="registerName" class="form-control" placeholder="Phone">
                                 </div>
                                 <br>
 

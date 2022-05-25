@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-lg text-gray-400 leading-tight text-right">
-            {{ __('Mumber') }}
+        <h2 class="text-lg text-gray-400 leading-tight">
+            {{ __('Worker') }}
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white  overflow-hidden shadow-xl sm:rounded-lg mx-1 my-3">
             <div class="w-full">
                 <div class=" space-y-2 p-2 m-3 ">
-                    <form class="w-full flex justify-center items-center flex-row" type="get" action="{{url('/WorkerView')}}">
+                    <form class="w-full flex justify-center items-center flex-row" type="get" action="{{url('/dashboard')}}">
                         @csrf
                             <button class="w-full p-2 m-3 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit"  name="query">
                                 All
@@ -17,9 +17,7 @@
                     <form class="w-full flex justify-center items-center flex-row" type="get" action="{{url('/search')}}">
                         @csrf
                         @foreach ($country as $item)
-                            <input type="text" value={{$item->country}} name="query" hidden>
-                            <button class="w-full p-2 m-3 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit"  name="query"> {{$item->country}}
-                            </button>
+                            <input type="submit" value={{$item->country}} class="w-full p-2 m-3 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" name="query" >
                         @endforeach
                     </form> 
                 </div>   
@@ -38,8 +36,10 @@
                                 </div>
                             </div>
                                 <div class="bottom-0 text-center ">
-                                    <form action="">
-                                        <input type="submit" value="Reservation" name="make-reservation" class="bg-blue-500 hover:bg-blue-700 transition-colors text-white p-2 rounded cursor-pointer">
+                                    <form action="{{route('storeReservation')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="number" name="Worker_id" value="{{$item->id}}" hidden>
+                                        <input type="submit" value="Reservation" name="make-reservation" class="bg-green-500 hover:bg-green-700 transition-colors text-white p-2 rounded cursor-pointer">
                                     </form>
                                 </div>
                         </div>

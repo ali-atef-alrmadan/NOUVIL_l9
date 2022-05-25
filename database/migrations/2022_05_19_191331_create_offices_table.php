@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("location_id");
             $table->string("name");
             $table->string('email')->unique();
-            $table->integer("phone_number");
+            $table->string("phone_number");
             $table->string("description",2500);
             $table->timestamps();
 
