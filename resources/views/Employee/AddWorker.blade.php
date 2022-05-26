@@ -27,6 +27,9 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mx-1 my-3">
+                <div class="mb-5">
+                    <x-jet-validation-errors class="mb-4" />
+                </div>
                 
             <form class="md:w-100 w-full" method="POST" action="{{route("storeAddWorker")}}" enctype="multipart/form-data" >
                 @csrf
